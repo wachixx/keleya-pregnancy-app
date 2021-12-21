@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
-import {RootStackParamList} from '../RootStackParamList';
+import {RootStackParamList} from '../utils/RootStackParamList';
 
 type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequencyScreen'>;
 

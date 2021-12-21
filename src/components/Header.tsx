@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/Entypo'; 
+import { Colors } from "../styles/Colors";
 import { otherStyles } from '../styles/Index'  
 
 interface Props {
@@ -15,7 +16,7 @@ const Header: React.FC<Props> = ({
   }) => { 
   return (
         <View style={otherStyles.header}>
-            <Icon onPress={onClick} name="arrow-left" size={20}/>
+            <Icon onPress={onClick} name="arrow-left" color={Colors.GREYISH_BROWN} size={20}/>
         </View>
   );
 }

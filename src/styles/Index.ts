@@ -73,7 +73,8 @@ const textStyles = StyleSheet.create({
     textHeader: {
         textAlign:"center",
         marginTop:20,
-        fontSize:17
+        fontSize:17,
+        color: Colors.GREYISH_BROWN
     },
     textHeaderTop: {
         textAlign:"center",
@@ -82,14 +83,16 @@ const textStyles = StyleSheet.create({
         fontSize:17,
         position:"absolute",
         top:60,
-        paddingHorizontal:20
+        paddingHorizontal:20,
+        color:Colors.GREYISH_BROWN
     },
     termsTxt: {
         fontSize:12,
         marginTop:10,
         lineHeight:24,
         marginLeft:10,
-        flex:1
+        flex:1,
+        color: Colors.GREYISH_BROWN
     },
     txtBold: {
         fontWeight:"bold"
@@ -116,6 +119,7 @@ const otherStyles = StyleSheet.create({
         height: 40,
         marginTop: 12,
         borderBottomWidth: 1,
+        borderBottomColor:Colors.GREYISH_BROWN,
         padding: 10,
         alignSelf:"center",
         paddingHorizontal:"8%"

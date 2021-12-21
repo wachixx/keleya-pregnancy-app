@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-    StyleSheet,
     ImageBackground,
     Image,
     View,
-    Text,
-    TouchableOpacity
+    Text
   } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {StackNavigationProp} from '@react-navigation/stack';

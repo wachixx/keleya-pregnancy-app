@@ -20,7 +20,7 @@ import DateScreen from './src/screens/DateScreen';
 import WorkoutFrequencyScreen from './src/screens/WorkoutFrequencyScreen';
 import SuccessScreen from "./src/screens/SuccessScreen";
 
-import {RootStackParamList} from './src/RootStackParamList';
+import {RootStackParamList} from './src/utils/RootStackParamList';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

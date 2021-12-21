@@ -12,7 +12,7 @@ import { containers, textStyles, otherStyles } from '../styles/Index';
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
 
-import {RootStackParamList} from '../RootStackParamList';
+import {RootStackParamList} from '../utils/RootStackParamList';
 
 type nameScreenProp = StackNavigationProp<RootStackParamList, 'NameScreen'>;
 

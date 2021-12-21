@@ -1,19 +1,16 @@
 import React from 'react';
 import {
-    StyleSheet,
     TextInput,
     Image,
     View,
-    Text,
-    TouchableOpacity
+    Text
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
-import {RootStackParamList} from '../RootStackParamList';
+import {RootStackParamList} from '../utils/RootStackParamList';
 
-import { containers, textStyles, dots, otherStyles } from '../styles/Index';  
-import {Colors} from '../styles/Colors';
+import { containers, textStyles, dots, otherStyles } from '../styles/Index'; 
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
 

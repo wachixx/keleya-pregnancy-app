@@ -1,21 +1,17 @@
 import React,{ useState } from 'react';
 import {
-    StyleSheet,
-    TextInput,
     Image,
     View,
-    Text,
-    TouchableOpacity
+    Text
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 
-import {Colors} from '../styles/Colors';
-import { containers, textStyles, otherStyles } from '../styles/Index';  
+import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
-import {RootStackParamList} from '../RootStackParamList';
+import {RootStackParamList} from '../utils/RootStackParamList';
 
 type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequencyScreen'>;
 

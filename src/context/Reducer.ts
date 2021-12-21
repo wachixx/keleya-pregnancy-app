@@ -2,7 +2,6 @@
 type State = {
     User: any,
 }
-
 type Action = {
     key: string,
     type: string,
