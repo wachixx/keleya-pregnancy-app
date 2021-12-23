@@ -1,11 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
-    StyleSheet,
     TextInput,
     Image,
     View,
-    Text,
-    ImageBackground
+    Text
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
@@ -15,49 +13,94 @@ import CheckBox from 'react-native-check-box';
 import {Colors} from '../styles/Colors';
 import { containers, textStyles, otherStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
+import PasswordInput from '../components/PasswordInput';
 import Header from '../components/Header'; 
 
-import {RootStackParamList} from '../utils/RootStackParamList';
-
+import {RootStackParamList} from '../types/RootStackParamList';
+import {Context}  from '../context/Store';
+import { useTranslation } from 'react-i18next';
 
 type signUpScreenProp = StackNavigationProp<RootStackParamList, 'SignUpScreen'>;
 
 const SignUpScreen = () =>  {
 
-    const navigation = useNavigation<signUpScreenProp>();
+    const navigation = useNavigation<signUpScreenProp>(); 
+    const { t } = useTranslation();
+   // const [dispatch] = useContext(Context);
 
+    const [emailAddress, setEmailAddress] = useState<string>("");
+    const [password, sePassword] = useState<string>("");
+    const [btnActive, setBtnActive] = useState<boolean>(false);
+    const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState<boolean>(false);
+    const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
+
+    const handleCheckBoxClickBoxes = (checkBoxName:string)=>{
+        if(checkBoxName === "terms"){
+            setAcceptedTerms(!acceptedTerms);
+        }else{
+            setAcceptedPrivacyPolicy(!acceptedPrivacyPolicy)
+        }
+    }
+
+    const saveBtnClick = () =>{
+        let payload = {
+            emailAddress: emailAddress,
+            password: password
+        }
+        if(btnActive){
+            //dispatch({type:"SET",key:"user", payload: payload});
+            navigation.navigate('NameScreen')
+        }else{
+            return;
+        }
+    }
+
+    useEffect(() => {
+        setBtnActive(false);
+        if (emailAddress.length === 0 || !acceptedPrivacyPolicy || !acceptedTerms) {
+          return;
+        }
+        setBtnActive(true);
+    }, [emailAddress, acceptedTerms, acceptedPrivacyPolicy]);
+
+    
     return (
         <View style={containers.bgWhite}>
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/authentication-background-image.jpg')} style={containers.fullContainer}/>
             <View style={containers.midContainer}>
-                <Text style={textStyles.textHeader}>Add your details below to set{'\n'} up an account.</Text>
+                <Text style={textStyles.textHeader}>{t('signup:signup_txt')}</Text>
                 <TextInput
                     style={otherStyles.input}
                     placeholder="example@gmail.com"
+                    onChangeText={emailAddress => setEmailAddress(emailAddress)}
                 />
-                <TextInput
-                    style={otherStyles.input}
-                    placeholder="Enter password"
-                />
+                <PasswordInput
+                 btnString={t('signup:enter_password')}/>
+                 
                 <View style={containers.checkBoxContainer}>
                     <CheckBox
+                        isChecked={acceptedPrivacyPolicy ? true : false}
                         style={{marginTop: 10}}
-                        checkBoxColor={Colors.PALE_TEAL}/>
-                    <Text style={textStyles.termsTxt}>I have read <Text style={textStyles.txtBold}> privacy policy.</Text></Text>
+                        checkBoxColor={Colors.PALE_TEAL}
+                        onClick={() => handleCheckBoxClickBoxes("")}/>
+                    <Text style={textStyles.termsTxt}>{t('signup:have_read')} <Text style={textStyles.txtBold}> {t('signup:privacy_policy')}.</Text></Text>
                 </View>
                 <View style={containers.checkBoxContainer}>
                     <CheckBox
+                        isChecked={acceptedTerms ? true : false}
                         style={{marginTop: 10}}
-                        checkBoxColor={Colors.PALE_TEAL}/>
-                    <Text style={textStyles.termsTxt}>I accept <Text style={textStyles.txtBold}>terms and conditions </Text>and<Text style={textStyles.txtBold}> Keleya's advice.</Text></Text>
+                        checkBoxColor={Colors.PALE_TEAL}
+                        onClick={() => handleCheckBoxClickBoxes("terms")}/>
+                    <Text style={textStyles.termsTxt}>{t('signup:i_accept')} <Text style={textStyles.txtBold}>{t('signup:terms')} </Text>{t('signup:and')}<Text style={textStyles.txtBold}> {t('signup:advice')}.</Text></Text>
                 </View>
             </View>
             <View style={containers.bottomWrapper}>
                 <Button
-                btnString="Create account"
-                onClick={() => navigation.navigate('NameScreen')}
-                tealBackgroundColor = {false}/>
+                btnString={t('signup:create_account')}
+                btnActive = {btnActive}
+                onClick = {saveBtnClick}
+                />
             </View>
         </View>
 )};

@@ -129,6 +129,12 @@ const otherStyles = StyleSheet.create({
         top:50, 
         left:20, 
         zIndex: 1000
+    },
+    eyeIcon:{
+        position:"absolute",top:24, right:9
+    },
+    passwordFieldWrapper:{
+        position:"relative"
     }
 
 })

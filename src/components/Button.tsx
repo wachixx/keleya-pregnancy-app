@@ -8,18 +8,18 @@ import { buttons } from '../styles/Index';
 
 interface Props {
   btnString : string;
-  tealBackgroundColor: boolean;
+  btnActive: boolean;
   onClick: () => void;
 }
 
 const Button: React.FC<Props> = ({ 
     btnString,
-    tealBackgroundColor,
+    btnActive,
     onClick, 
   }) => { 
   return (
       <TouchableOpacity onPress={onClick}>
-          <View style={tealBackgroundColor?buttons.btnActive:buttons.btnInactive}>
+          <View style={btnActive?buttons.btnActive:buttons.btnInactive}>
               <Text style={buttons.btnTxtWhite}>{btnString}</Text>
           </View>
       </TouchableOpacity>

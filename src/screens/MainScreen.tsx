@@ -12,26 +12,27 @@ import {useNavigation} from '@react-navigation/native';
 import { containers, textStyles, dots, otherStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import LoginButton from '../components/LoginButton';
-import {RootStackParamList} from '../RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
+import { useTranslation } from 'react-i18next';
 
 type mainScreenProp = StackNavigationProp<RootStackParamList, 'MainScreen'>;
-
-const slides = [
-    {
-      text: 'For a fit and relaxed.\npregnancy'
-    },
-    {
-       text: 'Slide 2 Text coming\nsoon'
-    },
-    {
-       text: 'slide 3 text coming\nsoon'
-    }
-]
-
 
 const LandingScreen = () =>  {
 
     const navigation = useNavigation<mainScreenProp>();
+    const { t } = useTranslation();
+
+    const slides = [
+        {
+          text: t('slide_txt1')
+        },
+        {
+           text: t('slide_txt2')
+        },
+        {
+           text: t('slide_txt3')
+        }
+    ]
 
     const _renderItem = ({item} : {item:any}) => {
         return (
@@ -42,11 +43,11 @@ const LandingScreen = () =>  {
     
                 <View style={containers.bottomWrapper}>
                     <Button
-                    btnString="Get Started"
+                    btnString={t('main:get_started')}
                     onClick={() => navigation.navigate('SignUpScreen')}
-                    tealBackgroundColor = {true}/>
+                    btnActive = {true}/>
                     <LoginButton
-                    btnString="Or Login"
+                    btnString={t('main:or_login')}
                     onClick={() => navigation.navigate('SignInScreen')}/>
                 </View>
 

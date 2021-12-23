@@ -1,15 +1,12 @@
-import React, {createContext, useReducer, useEffect} from "react";              
+import React, {createContext, useReducer} from "react";              
 import Reducer from './Reducer';
-                                                                                                                                                     
-export const Context = createContext(initialState); 
+            
                                                                                                                                                          
-const initialState = {userData: [
-        {wallet:"USD", symbol:"$", balance: 200},
-        {wallet:"EUR", symbol:"€", balance: 150},
-        {wallet:"GBP", symbol:"£", balance: 10}
-]}                                                                            
+const initialState = {user: []}      
+                                                                                                                           
+export const Context = createContext(initialState);                                                     
                                                                                 
-const Store = ({children}) => {                                                 
+const Store = ({children}: {children:any}) => {                                                 
     const [state, dispatch] = useReducer(Reducer, initialState);                                                                                                                                               
     return (                                                                    
         <Context.Provider value={[state, dispatch]}>                            

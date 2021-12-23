@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     TextInput,
     Image,
@@ -8,41 +8,62 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
-import {RootStackParamList} from '../utils/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
 
-import { containers, textStyles, dots, otherStyles } from '../styles/Index'; 
+import { containers, textStyles, otherStyles } from '../styles/Index'; 
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
+import PasswordInput from '../components/PasswordInput';
+import { useTranslation } from 'react-i18next';
 
 type signInScreenProp = StackNavigationProp<RootStackParamList, 'SignInScreen'>;
 
 const SignInScreen = () =>  {
 
     const navigation = useNavigation<signInScreenProp>();
+    const { t } = useTranslation();
+
+    const [emailAddress, setEmailAddress] = useState<string>("");
+    const [password, sePassword] = useState<string>("");
+    const [btnActive, setBtnActive] = useState<boolean>(false);
+
+    useEffect(() => {
+        setBtnActive(false);
+        if (emailAddress.length === 0) {
+          return;
+        }
+        setBtnActive(true);
+    }, [emailAddress]);
+
+    const loginBtnClick = () =>{
+        if(btnActive){
+            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            navigation.navigate('SuccessScreen')
+        }else{
+            return;
+        }
+    }
 
     return (
         <View style={containers.bgWhite}>
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/authentication-background-image.jpg')} style={containers.fullContainer}/>
             <View style={containers.midContainer}>
-                <Text style={textStyles.textHeader}>Welcome back!</Text>
+                <Text style={textStyles.textHeader}>{t('signin:welcome_back')}</Text>
                 <TextInput
                     style={otherStyles.input}
-                    value=""
                     placeholder="example@gmail.com"
+                    onChangeText={emailAddress => setEmailAddress(emailAddress)}
                 />
-                <TextInput
-                    style={otherStyles.input}
-                    value=""
-                    placeholder="Enter password"
-                />
+                <PasswordInput
+                 btnString={t('signin:enter_password')}/>
             </View>
             <View style={containers.bottomWrapper}>
-                <Text>Have you forgotten your password?</Text>
+                <Text>{t('signin:forgot_password')}</Text>
                 <Button
-                btnString="Log in"
-                onClick={() => navigation.navigate('SuccessScreen')}
-                tealBackgroundColor = {false}/>
+                btnString={t('signin:log_in')}
+                btnActive = {btnActive}
+                onClick = {loginBtnClick}/>
             </View>
         </View>
 )};

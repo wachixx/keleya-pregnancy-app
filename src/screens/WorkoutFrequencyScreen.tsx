@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import {
     Image,
     View,
@@ -11,14 +11,35 @@ import {Picker} from '@react-native-picker/picker';
 import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
-import {RootStackParamList} from '../utils/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
+import { useTranslation } from 'react-i18next';
 
 type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequencyScreen'>;
 
 const WorkoutFrequencyScreen = () =>  {
 
-    const navigation = useNavigation<workoutScreenProp>();
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const navigation = useNavigation<workoutScreenProp>(); 
+    const { t } = useTranslation();
+    
+    const [frequency, setFrequency] = useState<number>(0); 
+    const [btnActive, setBtnActive] = useState<boolean>(false);
+
+    useEffect(() => {
+        setBtnActive(false);
+        if (frequency  === 0) {
+          return;
+        }
+        setBtnActive(true);
+    }, [frequency]);
+
+    const saveBtnClick = () =>{
+        if(btnActive){
+            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            navigation.navigate('SuccessScreen')
+        }else{
+            return;
+        }
+    }
 
     return (
         <View style={containers.bgWhite}>
@@ -27,9 +48,9 @@ const WorkoutFrequencyScreen = () =>  {
             <Text style={textStyles.textHeaderTop}>How many times a week do{'\n'} you want to be active?</Text>
             <View style={[containers.midContainer,{paddingTop:40}]}>
                 <Picker
-                    selectedValue={selectedLanguage}
+                    selectedValue={frequency}
                     onValueChange={(itemValue, itemIndex) =>
-                        setSelectedLanguage(itemValue)
+                        setFrequency(itemValue)
                     }>
                     <Picker.Item label="Once a week" value="1" />
                     <Picker.Item label="2 times a week" value="2" />
@@ -42,9 +63,9 @@ const WorkoutFrequencyScreen = () =>  {
             </View>
             <View style={containers.bottomWrapper}>
                 <Button
-                btnString="Continue"
-                onClick={() => navigation.navigate('SuccessScreen')}
-                tealBackgroundColor = {false}/>
+                btnString="Continue" 
+                btnActive = {btnActive}
+                onClick = {saveBtnClick}/>
             </View>
         </View>
 )};

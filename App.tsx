@@ -20,23 +20,28 @@ import DateScreen from './src/screens/DateScreen';
 import WorkoutFrequencyScreen from './src/screens/WorkoutFrequencyScreen';
 import SuccessScreen from "./src/screens/SuccessScreen";
 
-import {RootStackParamList} from './src/utils/RootStackParamList';
+
+import {RootStackParamList} from './src/types/RootStackParamList';
+import Store from './src/context/Store';
+import './src/translations/Localize';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown:false}}>
-        <Stack.Screen name="MainScreen" component={MainScreen} />
-        <Stack.Screen name="SignInScreen" component={SignInScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="NameScreen" component={NameScreen} />
-        <Stack.Screen name="DateScreen" component={DateScreen} />
-        <Stack.Screen name="WorkoutFrequencyScreen" component={WorkoutFrequencyScreen} />
-        <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Store>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown:false}}>
+          <Stack.Screen name="MainScreen" component={MainScreen} />
+          <Stack.Screen name="SignInScreen" component={SignInScreen} />
+          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+          <Stack.Screen name="NameScreen" component={NameScreen} />
+          <Stack.Screen name="DateScreen" component={DateScreen} />
+          <Stack.Screen name="WorkoutFrequencyScreen" component={WorkoutFrequencyScreen} />
+          <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Store>
   );
 }
 export default App;

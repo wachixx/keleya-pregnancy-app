@@ -11,22 +11,27 @@ import {useNavigation} from '@react-navigation/native';
 
 import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
-import {RootStackParamList} from '../utils/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
+import { useTranslation } from 'react-i18next';
+import { Colors } from '../styles/Colors';
 
 type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequencyScreen'>;
 
 const SuccessScreen = () =>  {
-    const navigation = useNavigation<workoutScreenProp>();
+
+    const navigation = useNavigation<workoutScreenProp>(); 
+    const { t } = useTranslation();
+
     return (
         <ImageBackground source={require('../assets/images/notifications-background-image.jpg')} style={containers.fullContainer}> 
-            <Icon name="bell-o" size={40}/>
-            <Text style={textStyles.textHeader}>Get notification to boost{'\n'} your motivation.</Text>
+            <Icon name="bell-o" color={Colors.GREYISH_BROWN} size={40}/>
+            <Text style={textStyles.textHeader}>{t('success:notification_txt')}</Text>
             <View style={containers.bottomWrapper}>
-                <Text onPress={() => navigation.navigate('MainScreen')}>Skip</Text>
+                <Text onPress={() => navigation.navigate('MainScreen')}>{t('success:skip')}</Text>
                 <Button
-                btnString="Allow Notifications"
+                btnString={t('success:allow')}
                 onClick={() => navigation.navigate('MainScreen')}
-                tealBackgroundColor = {true}/>
+                btnActive = {true}/>
             </View>
         </ImageBackground>
 )};
