@@ -20,7 +20,7 @@ const WorkoutFrequencyScreen = () =>  {
 
     const navigation = useNavigation<workoutScreenProp>(); 
     const { t } = useTranslation();
-    
+
     const [frequency, setFrequency] = useState<number>(0); 
     const [btnActive, setBtnActive] = useState<boolean>(false);
 
@@ -45,25 +45,25 @@ const WorkoutFrequencyScreen = () =>  {
         <View style={containers.bgWhite}>
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/workout-goal-background-image.jpg')} style={containers.fullContainer}/>
-            <Text style={textStyles.textHeaderTop}>How many times a week do{'\n'} you want to be active?</Text>
+            <Text style={textStyles.textHeaderTop}>{t('frequency:freq_txt')}</Text>
             <View style={[containers.midContainer,{paddingTop:40}]}>
                 <Picker
                     selectedValue={frequency}
                     onValueChange={(itemValue, itemIndex) =>
                         setFrequency(itemValue)
                     }>
-                    <Picker.Item label="Once a week" value="1" />
-                    <Picker.Item label="2 times a week" value="2" />
-                    <Picker.Item label="3 times a week" value="3" />
-                    <Picker.Item label="4 times a week" value="4" />
-                    <Picker.Item label="5 times a week" value="5" />
-                    <Picker.Item label="6 times a week" value="6" />
-                    <Picker.Item label="7 times a week" value="7" />
+                    <Picker.Item label={t('frequency:times_1')} value="1" />
+                    <Picker.Item label={t('frequency:times_2')} value="2" />
+                    <Picker.Item label={t('frequency:times_3')} value="3" />
+                    <Picker.Item label={t('frequency:times_4')} value="4" />
+                    <Picker.Item label={t('frequency:times_5')} value="5" />
+                    <Picker.Item label={t('frequency:times_7')} value="6" />
+                    <Picker.Item label={t('frequency:times_7')} value="7" />
                 </Picker>
             </View>
             <View style={containers.bottomWrapper}>
                 <Button
-                btnString="Continue" 
+                btnString={t('frequency:continue')}
                 btnActive = {btnActive}
                 onClick = {saveBtnClick}/>
             </View>

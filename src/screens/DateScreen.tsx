@@ -22,7 +22,7 @@ const DateScreen = () =>  {
 
     const navigation = useNavigation<dateScreenProp>();
     const { t } = useTranslation();
-    
+
     const [date, setDate] = useState<Date>(new Date())
     const [open, setOpen] = useState<boolean>(false)
     const [btnActive, setBtnActive] = useState<boolean>(false);
@@ -49,7 +49,7 @@ const DateScreen = () =>  {
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/due-date-background-image.jpg')} style={containers.fullContainer}/>
             <View style={containers.midContainer}>
-                <Text style={textStyles.textHeader}>When is your baby due, Sam?</Text>
+                <Text style={textStyles.textHeader}>{t('date:date_txt')}</Text>
                 <TouchableOpacity onPress={() => setOpen(true)}>
                     <Text style={textStyles.dueDate}>{date.toLocaleString()}</Text>
                 </TouchableOpacity>
@@ -68,7 +68,7 @@ const DateScreen = () =>  {
             </View>
             <View style={containers.bottomWrapper}>
                 <Button
-                btnString="Continue"
+                btnString={t('date:continue')}
                 btnActive = {btnActive}
                 onClick = {saveBtnClick}/>
             </View>

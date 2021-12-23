@@ -21,7 +21,7 @@ const NameScreen = () =>  {
 
     const navigation = useNavigation<nameScreenProp>();
     const { t } = useTranslation();
-    
+
     const [name, setName] = useState<string>("");
     const [btnActive, setBtnActive] = useState<boolean>(false);
 
@@ -47,16 +47,16 @@ const NameScreen = () =>  {
         <Header onClick={() => navigation.goBack()}/>
         <Image source={require('../assets/images/authentication-background-image.jpg')} style={containers.fullContainer}/>
         <View style={containers.midContainer}>
-            <Text style={textStyles.textHeader}>It is great that your are here. First{'\n'} things first, what should we{'\n'} call you.</Text>
+            <Text style={textStyles.textHeader}>{t('name:name_txt')}</Text>
                 <TextInput
                     style={otherStyles.input}
-                    placeholder="Your name" 
+                    placeholder={t('name:your_name')}
                     onChangeText={name => setName(name)}
                 />
             </View>
             <View style={containers.bottomWrapper}>
                 <Button
-                btnString="Continue"
+                btnString={t('name:continue')}
                 btnActive = {btnActive}
                 onClick = {saveBtnClick}/>
             </View>
