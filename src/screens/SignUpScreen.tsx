@@ -19,6 +19,7 @@ import Header from '../components/Header';
 import {RootStackParamList} from './RootStackParamList';
 import {Context}  from '../context/Store';
 import { useTranslation } from 'react-i18next';
+import {validateEmail} from '../utils/EmailValidator';
 
 type signUpScreenProp = StackNavigationProp<RootStackParamList, 'SignUpScreen'>;
 
@@ -48,7 +49,7 @@ const SignUpScreen = () =>  {
             password: password
         }
         if(btnActive){
-            dispatch({type:"CREATE",payload: user});
+            dispatch({type:"CREATE",key:"logins",payload: user});
             navigation.navigate('NameScreen')
         }else{
             return;
@@ -57,11 +58,11 @@ const SignUpScreen = () =>  {
 
     useEffect(() => {
         setBtnActive(false);
-        if (emailAddress.length === 0 || !acceptedPrivacyPolicy || !acceptedTerms) {
+        if (!validateEmail(emailAddress) || password.length == 0 || !acceptedPrivacyPolicy || !acceptedTerms) {
           return;
         }
         setBtnActive(true);
-    }, [emailAddress, acceptedTerms, acceptedPrivacyPolicy]);
+    }, [emailAddress, password, acceptedTerms, acceptedPrivacyPolicy]);
 
     
     return (
@@ -76,7 +77,8 @@ const SignUpScreen = () =>  {
                     onChangeText={emailAddress => setEmailAddress(emailAddress)}
                 />
                 <PasswordInput
-                 btnString={t('signup:enter_password')}/>
+                 btnString={t('signup:enter_password')}
+                 onChangeText={password => sePassword(password)}/>
                  
                 <View style={containers.checkBoxContainer}>
                     <CheckBox

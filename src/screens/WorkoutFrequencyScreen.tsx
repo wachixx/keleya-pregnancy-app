@@ -35,10 +35,11 @@ const WorkoutFrequencyScreen = () =>  {
     }, [frequency]);
 
     const saveBtnClick = () =>{
-        let user = state.user
-        user["workoutFrequency"] = frequency;
+        let user = {
+            workoutFrequency: frequency
+        }
         if(btnActive){
-            dispatch({type:"UPDATE", payload:user});
+            dispatch({type:"UPDATE", key:"frequency", payload:user});
             navigation.navigate('SuccessScreen')
         }else{
             return;

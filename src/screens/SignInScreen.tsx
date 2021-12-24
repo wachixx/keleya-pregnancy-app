@@ -16,6 +16,7 @@ import Header from '../components/Header';
 import PasswordInput from '../components/PasswordInput';
 import { useTranslation } from 'react-i18next';
 import {Context}  from '../context/Store';
+import {validateEmail} from '../utils/EmailValidator';
 
 type signInScreenProp = StackNavigationProp<RootStackParamList, 'SignInScreen'>;
 
@@ -31,11 +32,11 @@ const SignInScreen = () =>  {
 
     useEffect(() => {
         setBtnActive(false);
-        if (emailAddress.length === 0) {
+        if (!validateEmail(emailAddress) || password.length == 0 ) {
           return;
         }
         setBtnActive(true);
-    }, [emailAddress]);
+    }, [emailAddress, password]);
 
     const loginBtnClick = () =>{
         let user = {
@@ -43,7 +44,7 @@ const SignInScreen = () =>  {
             password: password
         }
         if(btnActive){
-            dispatch({type:"CREATE", payload:user});
+            dispatch({type:"CREATE",key:"logins",payload: user});
             navigation.navigate('SuccessScreen')
         }else{
             return;
@@ -62,7 +63,8 @@ const SignInScreen = () =>  {
                     onChangeText={emailAddress => setEmailAddress(emailAddress)}
                 />
                 <PasswordInput
-                 btnString={t('signin:enter_password')}/>
+                 btnString={t('signin:enter_password')}
+                 onChangeText={password => sePassword(password)}/>
             </View>
             <View style={containers.bottomWrapper}>
                 <Text>{t('signin:forgot_password')}</Text>

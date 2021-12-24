@@ -10,9 +10,10 @@ import {otherStyles} from '../styles/Index'
 
 interface Props {
   btnString : string;
+  onChangeText: () => void;
 }
 
-const PasswordInput: React.FC<Props> = ({btnString}) => { 
+const PasswordInput: React.FC<Props> = ({btnString, onChangeText}) => { 
 
   const [secure, setSecure] = React.useState<boolean>(true);
 
@@ -22,6 +23,7 @@ const PasswordInput: React.FC<Props> = ({btnString}) => {
               style = {otherStyles.input}
               placeholder = {btnString}
               secureTextEntry = {secure} 
+              onChangeText ={onChangeText}
             />
             <Icon style={otherStyles.eyeIcon}
               name={secure ? "eye" : 'eye-slash'}

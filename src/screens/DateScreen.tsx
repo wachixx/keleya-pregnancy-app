@@ -8,7 +8,8 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
-import DatePicker from 'react-native-date-picker'
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 import { containers, textStyles, otherStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
@@ -38,11 +39,13 @@ const DateScreen = () =>  {
     }, [date]);
 
     const saveBtnClick = () =>{
-        let user = state.user
-        user["dateOfDelivery"] = date;
+    
+        let user = {
+            dateOfDelivery: date
+        }
       
         if(btnActive){
-            dispatch({type:"UPDATE", payload:user});
+            dispatch({type:"UPDATE", key:"dates", payload:user});
             navigation.navigate('WorkoutFrequencyScreen')
         }else{
             return;
@@ -54,9 +57,9 @@ const DateScreen = () =>  {
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/due-date-background-image.jpg')} style={containers.fullContainer}/>
             <View style={containers.midContainer}>
-                <Text style={textStyles.textHeader}>{t('date:date_txt')}, {state.user.name}?</Text>
+                <Text style={textStyles.textHeader}>{t('date:date_txt')}, {state.names.name}?</Text>
                 <TouchableOpacity onPress={() => setOpen(true)}>
-                    <Text style={textStyles.dueDate}>{date.toLocaleString()}</Text>
+                    <Text style={textStyles.dueDate}>{moment(date).format("MMM DD, YYYY")} </Text>
                 </TouchableOpacity>
                 <DatePicker
                     modal

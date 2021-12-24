@@ -5,14 +5,7 @@ export interface IState {
 }
 
 export interface IAction {
-  type: string;
-  payload: IUser | any
-}
-
-export interface IUser {
-  emailAddress: string;
-  password: string;
-  name: string;
-  dateOfDelivery: string;
-  workoutFrequency: number;
+  type: string,
+  key:string,
+  payload: any
 }

@@ -37,11 +37,13 @@ const NameScreen = () =>  {
 
     const saveBtnClick = () =>{
 
-        let user = state.user
-        user["name"] = name;
+
+        let user = {
+            name: name
+        }
 
         if(btnActive){
-            dispatch({type:"UPDATE", payload:user});
+            dispatch({type:"UPDATE",key :"names", payload:user});
             navigation.navigate('DateScreen')
         }else{
             return;
