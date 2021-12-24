@@ -19,9 +19,7 @@ import NameScreen from "./src/screens/NameScreen";
 import DateScreen from './src/screens/DateScreen';
 import WorkoutFrequencyScreen from './src/screens/WorkoutFrequencyScreen';
 import SuccessScreen from "./src/screens/SuccessScreen";
-
-
-import {RootStackParamList} from './src/types/RootStackParamList';
+import {RootStackParamList} from './src/screens/RootStackParamList';
 import Store from './src/context/Store';
 import './src/translations/Localize';
 
@@ -29,6 +27,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
+    // @ts-ignore
     <Store>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown:false}}>

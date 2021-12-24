@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import { containers, textStyles, dots, otherStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import LoginButton from '../components/LoginButton';
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 import { useTranslation } from 'react-i18next';
 
 type mainScreenProp = StackNavigationProp<RootStackParamList, 'MainScreen'>;

@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import {
     Image,
     View,
@@ -13,8 +13,9 @@ import DatePicker from 'react-native-date-picker'
 import { containers, textStyles, otherStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 import { useTranslation } from 'react-i18next';
+import {Context}  from '../context/Store';
 
 type dateScreenProp = StackNavigationProp<RootStackParamList, 'NameScreen'>;
 
@@ -22,6 +23,7 @@ const DateScreen = () =>  {
 
     const navigation = useNavigation<dateScreenProp>();
     const { t } = useTranslation();
+    const [state, dispatch] = useContext(Context);
 
     const [date, setDate] = useState<Date>(new Date())
     const [open, setOpen] = useState<boolean>(false)
@@ -36,8 +38,11 @@ const DateScreen = () =>  {
     }, [date]);
 
     const saveBtnClick = () =>{
+        let user = state.user
+        user["dateOfDelivery"] = date;
+      
         if(btnActive){
-            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            dispatch({type:"UPDATE", payload:user});
             navigation.navigate('WorkoutFrequencyScreen')
         }else{
             return;
@@ -49,7 +54,7 @@ const DateScreen = () =>  {
             <Header onClick={() => navigation.goBack()}/>
             <Image source={require('../assets/images/due-date-background-image.jpg')} style={containers.fullContainer}/>
             <View style={containers.midContainer}>
-                <Text style={textStyles.textHeader}>{t('date:date_txt')}</Text>
+                <Text style={textStyles.textHeader}>{t('date:date_txt')}, {state.user.name}?</Text>
                 <TouchableOpacity onPress={() => setOpen(true)}>
                     <Text style={textStyles.dueDate}>{date.toLocaleString()}</Text>
                 </TouchableOpacity>

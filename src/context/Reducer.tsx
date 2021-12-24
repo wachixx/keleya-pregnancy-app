@@ -1,12 +1,13 @@
-const Reducer = (state,  action) => {                                           
-    let key = action.key;                                                       
+import {IAction, IState } from "./Interfaces";
+
+const Reducer = (state: IState, action: IAction): IState => {                  
     switch (action.type) {                                                      
-        case 'SET':                                                             
+        case 'CREATE':                                                             
             return {                                                            
                 ...state,                                                       
-               [key]: action.payload                                            
+                user: action.payload                                            
             };                                                                                                                                      
-        case 'OVERRIDE':                                                        
+        case 'UPDATE':                                                        
             return {                                                            
                 ...state,                                                       
                ...action.payload                                                

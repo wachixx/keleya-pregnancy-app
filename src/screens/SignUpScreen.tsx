@@ -16,7 +16,7 @@ import Button from '../components/Button';
 import PasswordInput from '../components/PasswordInput';
 import Header from '../components/Header'; 
 
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 import {Context}  from '../context/Store';
 import { useTranslation } from 'react-i18next';
 
@@ -26,7 +26,7 @@ const SignUpScreen = () =>  {
 
     const navigation = useNavigation<signUpScreenProp>(); 
     const { t } = useTranslation();
-   // const [dispatch] = useContext(Context);
+    const [state, dispatch] = useContext(Context);
 
     const [emailAddress, setEmailAddress] = useState<string>("");
     const [password, sePassword] = useState<string>("");
@@ -43,12 +43,12 @@ const SignUpScreen = () =>  {
     }
 
     const saveBtnClick = () =>{
-        let payload = {
+        let user = {
             emailAddress: emailAddress,
             password: password
         }
         if(btnActive){
-            //dispatch({type:"SET",key:"user", payload: payload});
+            dispatch({type:"CREATE",payload: user});
             navigation.navigate('NameScreen')
         }else{
             return;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
     TextInput,
     Image,
@@ -12,8 +12,9 @@ import { containers, textStyles, otherStyles } from '../styles/Index';
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
 
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 import { useTranslation } from 'react-i18next';
+import {Context}  from '../context/Store';
 
 type nameScreenProp = StackNavigationProp<RootStackParamList, 'NameScreen'>;
 
@@ -21,6 +22,7 @@ const NameScreen = () =>  {
 
     const navigation = useNavigation<nameScreenProp>();
     const { t } = useTranslation();
+    const [state, dispatch] = useContext(Context);
 
     const [name, setName] = useState<string>("");
     const [btnActive, setBtnActive] = useState<boolean>(false);
@@ -34,8 +36,12 @@ const NameScreen = () =>  {
     }, [name]);
 
     const saveBtnClick = () =>{
+
+        let user = state.user
+        user["name"] = name;
+
         if(btnActive){
-            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            dispatch({type:"UPDATE", payload:user});
             navigation.navigate('DateScreen')
         }else{
             return;
@@ -47,7 +53,7 @@ const NameScreen = () =>  {
         <Header onClick={() => navigation.goBack()}/>
         <Image source={require('../assets/images/authentication-background-image.jpg')} style={containers.fullContainer}/>
         <View style={containers.midContainer}>
-            <Text style={textStyles.textHeader}>{t('name:name_txt')}</Text>
+            <Text style={textStyles.textHeader}>{t('name:name_txt')} </Text>
                 <TextInput
                     style={otherStyles.input}
                     placeholder={t('name:your_name')}

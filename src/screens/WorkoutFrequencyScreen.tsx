@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react';
+import React,{ useState,useEffect,useContext } from 'react';
 import {
     Image,
     View,
@@ -11,8 +11,9 @@ import {Picker} from '@react-native-picker/picker';
 import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 import { useTranslation } from 'react-i18next';
+import {Context}  from '../context/Store';
 
 type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequencyScreen'>;
 
@@ -20,6 +21,7 @@ const WorkoutFrequencyScreen = () =>  {
 
     const navigation = useNavigation<workoutScreenProp>(); 
     const { t } = useTranslation();
+    const [state, dispatch] = useContext(Context);
 
     const [frequency, setFrequency] = useState<number>(0); 
     const [btnActive, setBtnActive] = useState<boolean>(false);
@@ -33,8 +35,10 @@ const WorkoutFrequencyScreen = () =>  {
     }, [frequency]);
 
     const saveBtnClick = () =>{
+        let user = state.user
+        user["workoutFrequency"] = frequency;
         if(btnActive){
-            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            dispatch({type:"UPDATE", payload:user});
             navigation.navigate('SuccessScreen')
         }else{
             return;

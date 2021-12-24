@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
     TextInput,
     Image,
@@ -8,13 +8,14 @@ import {
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
-import {RootStackParamList} from '../types/RootStackParamList';
+import {RootStackParamList} from './RootStackParamList';
 
 import { containers, textStyles, otherStyles } from '../styles/Index'; 
 import Button from '../components/Button'; 
 import Header from '../components/Header'; 
 import PasswordInput from '../components/PasswordInput';
 import { useTranslation } from 'react-i18next';
+import {Context}  from '../context/Store';
 
 type signInScreenProp = StackNavigationProp<RootStackParamList, 'SignInScreen'>;
 
@@ -22,6 +23,7 @@ const SignInScreen = () =>  {
 
     const navigation = useNavigation<signInScreenProp>();
     const { t } = useTranslation();
+    const [state, dispatch] = useContext(Context);
 
     const [emailAddress, setEmailAddress] = useState<string>("");
     const [password, sePassword] = useState<string>("");
@@ -36,8 +38,12 @@ const SignInScreen = () =>  {
     }, [emailAddress]);
 
     const loginBtnClick = () =>{
+        let user = {
+            emailAddress: emailAddress,
+            password: password
+        }
         if(btnActive){
-            //dispatch({type:"OVERRIDE",key:"UserObject", payload:null});
+            dispatch({type:"CREATE", payload:user});
             navigation.navigate('SuccessScreen')
         }else{
             return;

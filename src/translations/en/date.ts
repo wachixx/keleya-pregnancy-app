@@ -1,4 +1,4 @@
 export default {
-    date_txt: 'When is your baby due, Sam?',
+    date_txt: 'When is your baby due',
     continue: 'Continue'
 };
