@@ -7,7 +7,6 @@ import {
 // @ts-ignore
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useNavigation} from '@react-navigation/native';
 
 import { containers, textStyles } from '../styles/Index';  
 import Button from '../components/Button'; 
@@ -20,7 +19,6 @@ type workoutScreenProp = StackNavigationProp<RootStackParamList, 'WorkoutFrequen
 
 const SuccessScreen = () =>  {
 
-    const navigation = useNavigation<workoutScreenProp>(); 
     const { t } = useTranslation();
     const [state, dispatch] = useContext(Context);
 
@@ -31,10 +29,10 @@ const SuccessScreen = () =>  {
             <Icon name="bell-o" color={Colors.GREYISH_BROWN} size={40}/>
             <Text style={textStyles.textHeader}>{t('success:notification_txt')}</Text>
             <View style={containers.bottomWrapper}>
-                <Text onPress={() => navigation.navigate('MainScreen')}>{t('success:skip')}</Text>
+                <Text>{t('success:skip')}</Text>
                 <Button
                 btnString={t('success:allow')}
-                onClick={() => navigation.navigate('MainScreen')}
+                onClick={() => void(0)}
                 btnActive = {true}/>
             </View>
         </ImageBackground>

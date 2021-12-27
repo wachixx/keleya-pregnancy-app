@@ -23,20 +23,12 @@ const WorkoutFrequencyScreen = () =>  {
     const { t } = useTranslation();
     const [state, dispatch] = useContext(Context);
 
-    const [frequency, setFrequency] = useState<number>(0); 
-    const [btnActive, setBtnActive] = useState<boolean>(false);
-
-    useEffect(() => {
-        setBtnActive(false);
-        if (frequency  === 0) {
-          return;
-        }
-        setBtnActive(true);
-    }, [frequency]);
+    const [frequency, setFrequency] = useState<string>("3"); 
+    const [btnActive, setBtnActive] = useState<boolean>(true);
 
     const saveBtnClick = () =>{
         let user = {
-            workoutFrequency: frequency
+            workoutFrequency: parseInt(frequency)
         }
         if(btnActive){
             dispatch({type:"UPDATE", key:"frequency", payload:user});

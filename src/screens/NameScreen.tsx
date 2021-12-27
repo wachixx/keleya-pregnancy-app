@@ -43,7 +43,7 @@ const NameScreen = () =>  {
         }
 
         if(btnActive){
-            dispatch({type:"UPDATE",key :"names", payload:user});
+            dispatch({type:"UPDATE",key :"userNames", payload:user});
             navigation.navigate('DateScreen')
         }else{
             return;
