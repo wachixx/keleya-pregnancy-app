@@ -22,8 +22,7 @@ after installing dependencies,
 
 
 Comments on the task
-It was fun building the onboarding process. I have however done the test as there is not time. I feel the 10 days period is not enough
-to deliver everything thats required in the best way possible.
+It was fun building the onboarding process. I have not managed to complete do the Detox tests for the app because of time.
 
 Also, the photo provided for the "name" screen is not right..or atleast that is what I feel.
 
